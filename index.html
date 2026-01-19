@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ProPOS V3 - Professional Point of Sales</title>
+    <title>ProPOS V4 - Fitur Lengkap & Suara</title>
     
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
@@ -13,98 +13,111 @@
     <style>
         :root {
             --primary: #4f46e5; --primary-dark: #4338ca;
-            --secondary: #0ea5e9;
-            --accent: #f59e0b;
-            --bg: #f8fafc; --surface: #ffffff;
-            --text: #1e293b; --text-light: #64748b;
+            --secondary: #0ea5e9; --accent: #f59e0b;
+            --bg: #f1f5f9; --surface: #ffffff;
+            --text: #0f172a; --text-light: #64748b;
             --danger: #ef4444; --success: #10b981;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-        /* --- NAVIGATION --- */
+        /* NAVIGASI */
         nav {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: var(--shadow); z-index: 50;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 50;
         }
-        nav h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
-        .nav-links { display: flex; gap: 0.5rem; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 12px; }
+        nav h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 0.5rem; background: rgba(255,255,255,0.15); padding: 4px; border-radius: 10px; }
         .nav-btn {
-            background: transparent; border: none; color: rgba(255,255,255,0.8); padding: 0.6rem 1.2rem; border-radius: 8px; 
-            cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; display: flex; align-items: center; gap: 6px;
+            background: transparent; border: none; color: rgba(255,255,255,0.9); padding: 0.5rem 1rem; border-radius: 8px; 
+            cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.3s;
         }
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.1); }
-        .nav-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .nav-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
-        /* --- MAIN LAYOUT --- */
-        main { flex: 1; padding: 1.5rem; overflow-y: auto; display: none; opacity: 0; transform: translateY(10px); transition: all 0.4s ease; }
+        /* MAIN LAYOUT */
+        main { flex: 1; padding: 1rem; overflow-y: auto; display: none; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; }
         main.active { display: block; opacity: 1; transform: translateY(0); }
 
-        /* --- COMPONENTS --- */
+        /* KOMPONEN */
         .card { background: var(--surface); padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-        
-        .btn { padding: 0.75rem 1.2rem; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; font-size: 0.95rem; }
-        .btn:active { transform: scale(0.96); }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
-        .btn-primary:hover { background: var(--primary-dark); }
+        .btn { padding: 0.7rem 1.2rem; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary { background: var(--primary); color: white; }
         .btn-danger { background: var(--danger); color: white; }
         .btn-success { background: var(--success); color: white; }
         .btn-accent { background: var(--accent); color: white; }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
 
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-light); font-size: 0.9rem; }
+        /* FORM INPUT */
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; color: var(--text-light); }
         .input-group { display: flex; gap: 8px; }
-        input { width: 100%; padding: 0.85rem; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; transition: 0.3s; outline: none; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
-
-        /* --- DASHBOARD STATS --- */
-        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .stat-card { background: white; padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow); border-left: 5px solid var(--primary); position: relative; overflow: hidden; }
-        .stat-card h3 { color: var(--text-light); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .stat-card .value { font-size: 2rem; font-weight: 800; color: var(--text); }
-        .stat-card.blue { border-color: #3b82f6; } .stat-card.green { border-color: #10b981; } .stat-card.orange { border-color: #f59e0b; }
         
-        /* --- CHART SECTION --- */
-        #chart-section { display: none; animation: slideDown 0.5s ease; margin-top: 1rem; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Input styling updated for currency feel */
+        input { 
+            width: 100%; padding: 0.8rem; border: 2px solid #e2e8f0; border-radius: 10px; 
+            font-size: 1rem; outline: none; transition: 0.3s; font-weight: 500;
+        }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+        /* Style khusus input angka/uang agar rata kanan opsional, tapi default rata kiri ok */
 
-        /* --- PRODUCT GRID --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
-        .prod-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; transition: 0.3s; position: relative; }
-        .prod-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: var(--primary); }
-        .prod-badge { position: absolute; top: 10px; right: 10px; font-size: 0.75rem; padding: 2px 8px; border-radius: 20px; font-weight: bold; background: #e2e8f0; color: #475569; }
-        .prod-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        
-        /* --- POS LAYOUT --- */
-        .pos-layout { display: grid; grid-template-columns: 2fr 1.2fr; gap: 1.5rem; height: calc(100vh - 100px); }
+        /* DASHBOARD GRID */
+        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow); border-left: 5px solid var(--primary); }
+        .stat-card h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; }
+        .stat-card .value { font-size: 1.8rem; font-weight: 800; color: var(--text); }
+
+        /* PRODUCT GRID */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+        .prod-card { background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; position: relative; transition: 0.2s; }
+        .prod-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .prod-badge { position: absolute; top: 8px; right: 8px; font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; background: #f1f5f9; font-weight: bold; }
+
+        /* POS LAYOUT */
+        .pos-layout { display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 1rem; height: calc(100vh - 100px); }
         .pos-left { overflow-y: auto; padding-right: 5px; }
-        .pos-right { display: flex; flex-direction: column; background: white; border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow); height: 100%; }
-        .cart-items { flex: 1; overflow-y: auto; margin: 1rem 0; border-top: 1px dashed #e2e8f0; border-bottom: 1px dashed #e2e8f0; padding: 1rem 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; padding-bottom: 0.8rem; border-bottom: 1px solid #f1f5f9; }
+        .pos-right { display: flex; flex-direction: column; background: white; border-radius: 16px; padding: 1.2rem; box-shadow: var(--shadow); height: 100%; }
+        .cart-items { flex: 1; overflow-y: auto; margin: 1rem 0; padding: 0.5rem 0; border-top: 2px dashed #e2e8f0; border-bottom: 2px dashed #e2e8f0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
+        
+        /* MODAL */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100; display: none; justify-content: center; align-items: center; backdrop-filter: blur(3px); }
+        .modal-box { background: white; width: 90%; max-width: 450px; padding: 1.5rem; border-radius: 16px; animation: popUp 0.3s ease; }
+        @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* --- MODALS --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 100; display: none; justify-content: center; align-items: center; }
-        .modal-box { background: white; width: 90%; max-width: 500px; padding: 2rem; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        /* Responsive */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .nav-links span { display: none; }
             .pos-layout { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; height: auto; }
-            .pos-right { height: 500px; }
+            .pos-right { height: 500px; margin-bottom: 2rem; }
         }
     </style>
 </head>
 <body>
 
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.type = 'square';
+            oscillator.frequency.setValueAtTime(1500, audioCtx.currentTime); // Frekuensi beep
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.start();
+            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.1);
+            setTimeout(() => oscillator.stop(), 100);
+        }
+    </script>
+
     <nav>
         <h1>💎 <span>ProPOS</span></h1>
         <div class="nav-links">
-            <button onclick="nav('dashboard')" class="nav-btn active" id="btn-dashboard">📊 <span>Dashboard</span></button>
+            <button onclick="nav('dashboard')" class="nav-btn active" id="btn-dashboard">📊 <span>Dash</span></button>
             <button onclick="nav('products')" class="nav-btn" id="btn-products">📦 <span>Produk</span></button>
             <button onclick="nav('pos')" class="nav-btn" id="btn-pos">🛒 <span>Kasir</span></button>
         </div>
@@ -112,73 +125,59 @@
 
     <div id="modal-edit" class="modal-overlay">
         <div class="modal-box">
-            <h2 style="margin-bottom: 1.5rem;">✏️ Edit Produk</h2>
+            <h3 style="margin-bottom: 1rem;">✏️ Edit Produk</h3>
             <input type="hidden" id="edit-id">
-            <div class="form-group">
-                <label>Nama Produk</label>
-                <input type="text" id="edit-name">
-            </div>
-            <div class="form-group">
-                <label>Harga (Rp)</label>
-                <input type="number" id="edit-price">
-            </div>
-            <div class="form-group">
-                <label>Stok</label>
-                <input type="number" id="edit-stock">
-            </div>
-            <div style="display: flex; gap: 10px; margin-top: 1.5rem;">
-                <button class="btn btn-primary" style="flex: 1;" onclick="updateProduct()">💾 Simpan Perubahan</button>
+            <div class="form-group"><label>Nama Produk</label><input type="text" id="edit-name"></div>
+            <div class="form-group"><label>Harga (Rp)</label><input type="tel" id="edit-price" onkeyup="formatCurrency(this)"></div>
+            <div class="form-group"><label>Stok</label><input type="number" id="edit-stock"></div>
+            <div style="display:flex; gap:10px; margin-top:1.5rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="updateProduct()">Simpan</button>
                 <button class="btn btn-danger" onclick="closeEditModal()">Batal</button>
             </div>
         </div>
     </div>
 
-    <div id="modal-scanner" class="modal-overlay" style="align-items: flex-start; padding-top: 50px;">
-        <div class="modal-box" style="background: #000; color: white; text-align: center;">
-            <div id="reader" style="width: 100%;"></div>
-            <button class="btn btn-danger" style="margin-top: 1rem;" onclick="stopScanner()">Tutup Kamera</button>
+    <div id="modal-scanner" class="modal-overlay">
+        <div class="modal-box" style="background: black; padding: 1rem; text-align: center; color: white;">
+            <p style="margin-bottom: 10px;">Arahkan kamera ke barcode</p>
+            <div id="reader" style="width: 100%; border-radius: 8px; overflow: hidden;"></div>
+            <button class="btn btn-danger" style="margin-top: 1rem; width: 100%;" onclick="stopScanner()">Tutup Kamera</button>
         </div>
     </div>
 
     <main id="page-dashboard" class="active">
         <div class="stats-container">
-            <div class="stat-card blue">
+            <div class="stat-card" style="border-color: var(--primary);">
                 <h3>Total Produk</h3>
                 <div class="value" id="d-prod">0</div>
             </div>
-            <div class="stat-card green">
+            <div class="stat-card" style="border-color: var(--success);">
                 <h3>Omset Hari Ini</h3>
                 <div class="value" id="d-omset">Rp 0</div>
             </div>
-            <div class="stat-card orange">
+            <div class="stat-card" style="border-color: var(--accent);">
                 <h3>Transaksi</h3>
                 <div class="value" id="d-trx">0</div>
             </div>
         </div>
-
+        
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <h2>📈 Analisis Penjualan</h2>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Lihat grafik performa penjualan toko anda.</p>
-                </div>
-                <button class="btn btn-outline" onclick="toggleChart()" id="btn-chart-toggle">👁️ Tampilkan Grafik</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>📈 Grafik Penjualan</h2>
+                <button class="btn btn-outline" id="btn-chart" onclick="toggleChart()">👁️ Tampilkan</button>
             </div>
-            
-            <div id="chart-section">
-                <div style="height: 300px; margin-top: 1rem;">
-                    <canvas id="salesChart"></canvas>
-                </div>
+            <div id="chart-container" style="display: none; height: 300px;">
+                <canvas id="salesChart"></canvas>
             </div>
         </div>
     </main>
 
     <main id="page-products">
         <div class="card">
-            <h2>✨ Tambah Produk Baru</h2>
+            <h2>✨ Tambah Produk</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
                 <div class="form-group">
-                    <label>Kode Barcode</label>
+                    <label>Barcode</label>
                     <div class="input-group">
                         <input type="text" id="p-code" placeholder="Scan/Auto...">
                         <button class="btn btn-accent" onclick="startScanner('input')">📷</button>
@@ -186,44 +185,48 @@
                     </div>
                 </div>
                 <div class="form-group"><label>Nama Produk</label><input type="text" id="p-name"></div>
-                <div class="form-group"><label>Harga</label><input type="number" id="p-price"></div>
-                <div class="form-group"><label>Stok</label><input type="number" id="p-stock"></div>
+                <div class="form-group"><label>Harga (Rp)</label><input type="tel" id="p-price" onkeyup="formatCurrency(this)" placeholder="0"></div>
+                <div class="form-group"><label>Stok</label><input type="number" id="p-stock" placeholder="0"></div>
             </div>
-            <div id="barcode-view" style="margin-bottom: 1rem; text-align: center; display: none;">
+            <div id="barcode-preview" style="text-align: center; margin: 10px 0; display: none;">
                 <svg id="barcode-svg"></svg>
             </div>
             <button class="btn btn-success" style="width: 100%;" onclick="addProduct()">➕ Simpan Produk</button>
         </div>
 
-        <h3>📦 Daftar Produk (<span id="count-prod">0</span>)</h3>
+        <h3 style="margin-top: 2rem;">Daftar Produk (<span id="count-prod">0</span>)</h3>
         <div id="list-prod" class="product-grid" style="margin-top: 1rem;"></div>
     </main>
 
     <main id="page-pos">
         <div class="pos-layout">
             <div class="pos-left">
-                <div style="position: sticky; top: 0; background: var(--bg); padding-bottom: 1rem; z-index: 10; display: flex; gap: 0.5rem;">
-                    <input type="text" id="pos-search" placeholder="🔍 Cari Produk..." oninput="renderPOS()">
+                <div style="position: sticky; top:0; background: var(--bg); z-index: 10; padding-bottom: 10px; display: flex; gap: 8px;">
+                    <input type="text" id="pos-search" placeholder="🔍 Cari nama/kode..." oninput="renderPOS()">
                     <button class="btn btn-accent" onclick="startScanner('pos')">📷 Scan</button>
                 </div>
                 <div id="pos-grid" class="product-grid"></div>
             </div>
             <div class="pos-right">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
                     <h2>🛒 Keranjang</h2>
-                    <button class="btn btn-danger" style="padding: 0.5rem;" onclick="clearCart()">🗑️</button>
+                    <button class="btn btn-danger" style="font-size: 0.8rem; padding: 0.4rem;" onclick="clearCart()">🗑️ Reset</button>
                 </div>
                 <div class="cart-items" id="cart-list"></div>
+                
                 <div style="margin-top: auto;">
-                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem;">
                         <span>Total:</span>
                         <span id="c-total" style="color: var(--primary);">Rp 0</span>
                     </div>
-                    <input type="number" id="c-pay" placeholder="Bayar (Rp)" style="margin-bottom: 1rem;" oninput="calcChange()">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-weight: 600;">
-                        <span>Kembali:</span> <span id="c-change">Rp 0</span>
+                    <div class="form-group">
+                        <input type="tel" id="c-pay" placeholder="Uang Pembeli (Rp)" onkeyup="formatCurrency(this); calcChange()" style="font-size: 1.2rem; font-weight: bold;">
                     </div>
-                    <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="checkout()">✅ PROSES BAYAR</button>
+                    <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 1rem;">
+                        <span>Kembali:</span>
+                        <span id="c-change">Rp 0</span>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;" onclick="checkout()">✅ BAYAR</button>
                 </div>
             </div>
         </div>
@@ -232,217 +235,188 @@
     <script>
         // --- DATA & STATE ---
         let DB = {
-            prods: JSON.parse(localStorage.getItem('pp_prods')) || [],
-            trx: JSON.parse(localStorage.getItem('pp_trx')) || []
+            prods: JSON.parse(localStorage.getItem('pos_prods')) || [],
+            trx: JSON.parse(localStorage.getItem('pos_trx')) || []
         };
         let CART = [];
         let scanner = null;
-        let scanMode = '';
+        let scanTarget = '';
         let chartInstance = null;
 
-        // --- CORE FUNCTIONS ---
+        // --- UTILITIES ---
         const save = () => {
-            localStorage.setItem('pp_prods', JSON.stringify(DB.prods));
-            localStorage.setItem('pp_trx', JSON.stringify(DB.trx));
+            localStorage.setItem('pos_prods', JSON.stringify(DB.prods));
+            localStorage.setItem('pos_trx', JSON.stringify(DB.trx));
             refreshUI();
         };
 
         const formatRp = (n) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(n);
-        const notify = (title, icon = 'success') => Swal.fire({ title, icon, timer: 1500, showConfirmButton: false, toast: true, position: 'top-end' });
+        
+        // FUNGSI BARU: FORMAT INPUT UANG SAAT DIKETIK
+        function formatCurrency(input) {
+            // Hapus karakter selain angka
+            let val = input.value.replace(/[^0-9]/g, '');
+            if (!val) return input.value = '';
+            
+            // Format jadi 10.000
+            input.value = new Intl.NumberFormat('id-ID').format(val);
+        }
+
+        // FUNGSI BARU: PARSE DARI STRING BER-TITIK KE ANGKA MURNI
+        function getNumber(idStr) {
+            const val = document.getElementById(idStr).value;
+            // Hapus titik agar bisa dihitung komputer
+            return parseInt(val.replace(/\./g, '')) || 0;
+        }
+
+        const notify = (msg, type='success') => Swal.fire({ 
+            title: msg, icon: type, toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 
+        });
 
         function nav(page) {
             document.querySelectorAll('main').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById('page-' + page).classList.add('active');
-            document.getElementById('btn-' + page).classList.add('active');
+            document.getElementById('page-'+page).classList.add('active');
+            document.getElementById('btn-'+page).classList.add('active');
             if(page === 'pos') renderPOS();
             if(page === 'dashboard') updateStats();
         }
 
-        // --- DASHBOARD & CHART ---
+        // --- DASHBOARD ---
         function updateStats() {
             document.getElementById('d-prod').innerText = DB.prods.length;
             const today = new Date().toISOString().slice(0, 10);
             const todayTrx = DB.trx.filter(t => t.date.startsWith(today));
             document.getElementById('d-trx').innerText = todayTrx.length;
-            document.getElementById('d-omset').innerText = formatRp(todayTrx.reduce((a,b) => a + b.total, 0));
+            document.getElementById('d-omset').innerText = formatRp(todayTrx.reduce((a,b)=>a+b.total, 0));
         }
 
         function toggleChart() {
-            const section = document.getElementById('chart-section');
-            const btn = document.getElementById('btn-chart-toggle');
-            
-            if (section.style.display === 'block') {
-                section.style.display = 'none';
-                btn.innerHTML = '👁️ Tampilkan Grafik';
-                btn.classList.remove('btn-primary');
-                btn.classList.add('btn-outline');
-            } else {
-                section.style.display = 'block';
-                btn.innerHTML = '🙈 Sembunyikan Grafik';
-                btn.classList.remove('btn-outline');
-                btn.classList.add('btn-primary');
+            const box = document.getElementById('chart-container');
+            const btn = document.getElementById('btn-chart');
+            if(box.style.display === 'none') {
+                box.style.display = 'block';
+                btn.innerText = '🙈 Sembunyikan';
                 renderChart();
+            } else {
+                box.style.display = 'none';
+                btn.innerText = '👁️ Tampilkan';
             }
         }
 
         function renderChart() {
             const ctx = document.getElementById('salesChart').getContext('2d');
-            
-            // Siapkan Data: Grouping transaksi by tanggal (7 hari terakhir)
             const labels = [];
             const data = [];
-            
-            for(let i=6; i>=0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const dateStr = d.toISOString().slice(0, 10);
-                labels.push(d.toLocaleDateString('id-ID', {day: 'numeric', month: 'short'}));
-                
-                const total = DB.trx
-                    .filter(t => t.date.startsWith(dateStr))
-                    .reduce((sum, t) => sum + t.total, 0);
-                data.push(total);
+            for(let i=6; i>=0; i--){
+                const d = new Date(); d.setDate(d.getDate()-i);
+                const ds = d.toISOString().slice(0,10);
+                labels.push(d.toLocaleDateString('id-ID',{day:'numeric',month:'short'}));
+                data.push(DB.trx.filter(t=>t.date.startsWith(ds)).reduce((a,b)=>a+b.total,0));
             }
-
-            if(chartInstance) chartInstance.destroy(); // Hapus chart lama agar tidak tumpang tindih
-
+            if(chartInstance) chartInstance.destroy();
             chartInstance = new Chart(ctx, {
                 type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Penjualan (Rp)',
-                        data: data,
-                        borderColor: '#4f46e5',
-                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, grid: { borderDash: [5, 5] } } }
-                }
+                data: { labels, datasets: [{ label: 'Penjualan (Rp)', data, borderColor: '#4f46e5', tension: 0.3, fill: true, backgroundColor: 'rgba(79, 70, 229, 0.1)' }] },
+                options: { responsive: true, maintainAspectRatio: false }
             });
         }
 
-        // --- PRODUCT CRUD ---
+        // --- PRODUCT ---
+        function generateCode() {
+            const code = Math.floor(Date.now() + Math.random()).toString().slice(-10);
+            document.getElementById('p-code').value = code;
+            JsBarcode('#barcode-svg', code, { height: 40, displayValue: true });
+            document.getElementById('barcode-preview').style.display = 'block';
+        }
+
         function addProduct() {
             const code = document.getElementById('p-code').value;
             const name = document.getElementById('p-name').value;
-            const price = parseInt(document.getElementById('p-price').value);
+            const price = getNumber('p-price'); // Ambil harga bersih (tanpa titik)
             const stock = parseInt(document.getElementById('p-stock').value);
 
-            if(!code || !name || !price) return Swal.fire('Gagal', 'Lengkapi semua data!', 'error');
-            if(DB.prods.find(p => p.code === code)) return Swal.fire('Gagal', 'Barcode sudah ada!', 'warning');
+            if(!code || !name || !price) return notify('Lengkapi data!', 'error');
+            if(DB.prods.some(p => p.code === code)) return notify('Barcode kembar!', 'error');
 
             DB.prods.unshift({ id: Date.now(), code, name, price, stock });
             save();
+            
+            // Reset Form
             document.querySelectorAll('#page-products input').forEach(i => i.value = '');
-            document.getElementById('barcode-view').style.display = 'none';
-            notify('Produk berhasil ditambahkan!');
+            document.getElementById('barcode-preview').style.display = 'none';
+            notify('Produk Disimpan!');
         }
 
         function refreshUI() {
-            // Render List Produk
-            const container = document.getElementById('list-prod');
+            const list = document.getElementById('list-prod');
             document.getElementById('count-prod').innerText = DB.prods.length;
-            
-            container.innerHTML = DB.prods.map(p => `
+            list.innerHTML = DB.prods.map(p => `
                 <div class="prod-card">
                     <span class="prod-badge">Stok: ${p.stock}</span>
-                    <h4 style="margin-bottom: 5px;">${p.name}</h4>
-                    <div style="color: #64748b; font-size: 0.85rem; margin-bottom: 8px;">🎫 ${p.code}</div>
-                    <div style="color: var(--primary); font-weight: bold; font-size: 1.1rem;">${formatRp(p.price)}</div>
-                    <div class="prod-actions">
-                        <button class="btn btn-primary" style="flex:1; font-size:0.8rem; padding:0.5rem;" onclick="openEdit(${p.id})">✏️ Edit</button>
-                        <button class="btn btn-danger" style="flex:1; font-size:0.8rem; padding:0.5rem;" onclick="delProd(${p.id})">🗑️ Hapus</button>
+                    <div style="font-weight:bold; margin-bottom:5px;">${p.name}</div>
+                    <div style="color:#64748b; font-size:0.8rem;">${p.code}</div>
+                    <div style="color:var(--primary); font-weight:bold;">${formatRp(p.price)}</div>
+                    <div style="display:flex; gap:5px; margin-top:10px;">
+                        <button class="btn btn-primary" style="padding:5px 10px; font-size:0.8rem; flex:1;" onclick="editProd(${p.id})">✏️</button>
+                        <button class="btn btn-danger" style="padding:5px 10px; font-size:0.8rem; flex:1;" onclick="delProd(${p.id})">🗑️</button>
                     </div>
                 </div>
             `).join('');
-            
             if(document.getElementById('page-pos').classList.contains('active')) renderPOS();
             updateStats();
         }
 
         function delProd(id) {
-            Swal.fire({
-                title: 'Hapus Produk?', text: "Data tidak bisa dikembalikan!", icon: 'warning',
-                showCancelButton: true, confirmButtonColor: '#ef4444', confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    DB.prods = DB.prods.filter(p => p.id !== id);
-                    save();
-                    notify('Produk dihapus', 'success');
-                }
-            });
+            Swal.fire({ title: 'Hapus?', icon:'warning', showCancelButton:true, confirmButtonText:'Ya' })
+            .then(r => { if(r.isConfirmed){ DB.prods = DB.prods.filter(p=>p.id!==id); save(); } });
         }
 
-        // --- EDIT FEATURE (NEW) ---
-        function openEdit(id) {
+        function editProd(id) {
             const p = DB.prods.find(x => x.id === id);
-            if(!p) return;
             document.getElementById('edit-id').value = p.id;
             document.getElementById('edit-name').value = p.name;
-            document.getElementById('edit-price').value = p.price;
+            document.getElementById('edit-price').value = p.price; 
+            formatCurrency(document.getElementById('edit-price')); // Format saat load
             document.getElementById('edit-stock').value = p.stock;
             document.getElementById('modal-edit').style.display = 'flex';
         }
 
-        function closeEditModal() {
-            document.getElementById('modal-edit').style.display = 'none';
-        }
-
         function updateProduct() {
             const id = parseInt(document.getElementById('edit-id').value);
-            const name = document.getElementById('edit-name').value;
-            const price = parseInt(document.getElementById('edit-price').value);
-            const stock = parseInt(document.getElementById('edit-stock').value);
-
-            const idx = DB.prods.findIndex(p => p.id === id);
-            if(idx !== -1) {
-                DB.prods[idx] = { ...DB.prods[idx], name, price, stock };
+            const idx = DB.prods.findIndex(x => x.id === id);
+            if(idx > -1) {
+                DB.prods[idx].name = document.getElementById('edit-name').value;
+                DB.prods[idx].price = getNumber('edit-price'); // Ambil harga bersih
+                DB.prods[idx].stock = parseInt(document.getElementById('edit-stock').value);
                 save();
                 closeEditModal();
-                notify('Produk berhasil diupdate!');
+                notify('Update Berhasil');
             }
         }
+        function closeEditModal() { document.getElementById('modal-edit').style.display = 'none'; }
 
-        function generateCode() {
-            const code = 'PR-' + Date.now().toString().slice(-6) + Math.floor(Math.random()*100);
-            document.getElementById('p-code').value = code;
-            JsBarcode("#barcode-svg", code, { height: 40, displayValue: true });
-            document.getElementById('barcode-view').style.display = 'block';
-        }
-
-        // --- POS SYSTEM ---
+        // --- POS ---
         function renderPOS() {
-            const search = document.getElementById('pos-search').value.toLowerCase();
+            const q = document.getElementById('pos-search').value.toLowerCase();
             const grid = document.getElementById('pos-grid');
-            grid.innerHTML = DB.prods
-                .filter(p => p.name.toLowerCase().includes(search) || p.code.toLowerCase().includes(search))
-                .map(p => `
-                <div class="prod-card" onclick="addToCart(${p.id})" style="cursor: pointer;">
-                    <span class="prod-badge" style="${p.stock<=0 ? 'background:red;color:white':''}">${p.stock}</span>
-                    <h4>${p.name}</h4>
-                    <div style="color:var(--primary); font-weight:bold;">${formatRp(p.price)}</div>
-                </div>`).join('');
+            grid.innerHTML = DB.prods.filter(p => p.name.toLowerCase().includes(q) || p.code.includes(q)).map(p => `
+                <div class="prod-card" onclick="addToCart(${p.id})" style="cursor:pointer; border-left:4px solid ${p.stock>0? 'var(--primary)':'var(--danger)'}">
+                    <div style="font-weight:bold;">${p.name}</div>
+                    <div style="font-size:0.8rem; color:#64748b;">${p.stock} Tersedia</div>
+                    <div style="color:var(--primary); font-weight:800;">${formatRp(p.price)}</div>
+                </div>
+            `).join('');
         }
 
         function addToCart(id) {
             const p = DB.prods.find(x => x.id === id);
             if(p.stock <= 0) return notify('Stok Habis!', 'error');
-            
             const exist = CART.find(c => c.id === id);
             if(exist) {
-                if(exist.qty < p.stock) exist.qty++;
-                else return notify('Stok max tercapai!', 'warning');
+                if(exist.qty < p.stock) exist.qty++; else return notify('Max Stok!', 'warning');
             } else {
-                CART.push({...p, qty: 1});
+                CART.push({...p, qty:1});
             }
             renderCart();
         }
@@ -456,11 +430,11 @@
                 <div class="cart-item">
                     <div>
                         <div style="font-weight:bold;">${c.name}</div>
-                        <div style="font-size:0.85rem; color:#64748b;">${formatRp(c.price)} x ${c.qty}</div>
+                        <div style="font-size:0.8rem;">${formatRp(c.price)} x ${c.qty}</div>
                     </div>
-                    <div style="display:flex; align-items:center; gap:5px;">
+                    <div>
                         <button class="btn btn-outline" style="padding:2px 8px;" onclick="modCart(${c.id}, -1)">-</button>
-                        <span>${c.qty}</span>
+                        <span style="margin:0 5px;">${c.qty}</span>
                         <button class="btn btn-outline" style="padding:2px 8px;" onclick="modCart(${c.id}, 1)">+</button>
                     </div>
                 </div>`;
@@ -469,91 +443,79 @@
             calcChange();
         }
 
-        function modCart(id, val) {
-            const c = CART.find(x => x.id === id);
-            const p = DB.prods.find(x => x.id === id);
-            if(val === 1 && c.qty >= p.stock) return notify('Stok terbatas!', 'warning');
-            c.qty += val;
-            if(c.qty <= 0) CART = CART.filter(x => x.id !== id);
+        function modCart(id, n) {
+            const c = CART.find(x=>x.id===id);
+            const p = DB.prods.find(x=>x.id===id);
+            c.qty += n;
+            if(c.qty > p.stock) { c.qty--; notify('Mentok Stok', 'warning'); }
+            if(c.qty <= 0) CART = CART.filter(x=>x.id!==id);
             renderCart();
         }
 
         function calcChange() {
-            const total = CART.reduce((a,b) => a + (b.price*b.qty), 0);
-            const pay = parseInt(document.getElementById('c-pay').value) || 0;
+            const total = CART.reduce((a,b)=>a+(b.price*b.qty),0);
+            const pay = getNumber('c-pay'); // Ambil input bayar bersih
             const change = pay - total;
             const el = document.getElementById('c-change');
-            el.innerText = change >= 0 ? formatRp(change) : `Kurang ${formatRp(Math.abs(change))}`;
-            el.style.color = change >= 0 ? 'var(--success)' : 'var(--danger)';
+            if(change >= 0) {
+                el.innerText = formatRp(change);
+                el.style.color = 'var(--success)';
+            } else {
+                el.innerText = 'Kurang ' + formatRp(Math.abs(change));
+                el.style.color = 'var(--danger)';
+            }
         }
 
         function clearCart() {
-            if(CART.length === 0) return;
-            Swal.fire({
-                title: 'Kosongkan Keranjang?', showCancelButton: true, confirmButtonText: 'Ya'
-            }).then((res) => { if(res.isConfirmed) { CART = []; document.getElementById('c-pay').value=''; renderCart(); } });
+            CART = []; document.getElementById('c-pay').value=''; renderCart();
         }
 
         function checkout() {
-            if(!CART.length) return notify('Keranjang kosong!', 'error');
-            const total = CART.reduce((a,b) => a + (b.price*b.qty), 0);
-            const pay = parseInt(document.getElementById('c-pay').value) || 0;
+            if(!CART.length) return notify('Keranjang kosong', 'error');
+            const total = CART.reduce((a,b)=>a+(b.price*b.qty),0);
+            const pay = getNumber('c-pay');
             
-            if(pay < total) return Swal.fire('Gagal', 'Uang pembayaran kurang!', 'error');
+            if(pay < total) return Swal.fire('Gagal', 'Uang kurang!', 'error');
 
-            // Proses Kurangi Stok
             CART.forEach(c => {
-                const p = DB.prods.find(x => x.id === c.id);
+                const p = DB.prods.find(x=>x.id===c.id);
                 p.stock -= c.qty;
             });
-
-            // Simpan Transaksi
-            DB.trx.push({
-                id: Date.now(),
-                date: new Date().toISOString(),
-                total: total,
-                items: [...CART]
-            });
-
+            DB.trx.push({ id:Date.now(), date:new Date().toISOString(), total, items:[...CART] });
+            
             save();
-            Swal.fire({
-                title: 'Transaksi Sukses!',
-                text: `Kembalian: ${formatRp(pay - total)}`,
-                icon: 'success'
-            });
-
-            CART = [];
-            document.getElementById('c-pay').value = '';
-            renderCart();
+            Swal.fire({ title: 'Sukses!', text: `Kembalian: ${formatRp(pay-total)}`, icon: 'success' });
+            clearCart();
+            renderPOS();
         }
 
         // --- SCANNER ---
-        function startScanner(mode) {
-            scanMode = mode;
+        function startScanner(target) {
+            scanTarget = target;
             document.getElementById('modal-scanner').style.display = 'flex';
             scanner = new Html5Qrcode("reader");
-            scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, (decodedText) => {
-                new Audio('https://assets.mixkit.co/active_storage/sfx/2578/2578-preview.mp3').play();
-                if(scanMode === 'input') {
-                    document.getElementById('p-code').value = decodedText;
+            scanner.start({ facingMode: "environment" }, { fps: 15, qrbox: 250 }, (txt) => {
+                playBeep(); // Bunyikan Beep Digital
+                if(scanTarget === 'input') {
+                    document.getElementById('p-code').value = txt;
+                    JsBarcode('#barcode-svg', txt, { height:40, displayValue:true });
+                    document.getElementById('barcode-preview').style.display = 'block';
                     stopScanner();
                 } else {
-                    const p = DB.prods.find(x => x.code === decodedText);
-                    if(p) { addToCart(p.id); notify('Produk discan: ' + p.name); }
-                    else notify('Produk tidak ditemukan', 'error');
+                    const p = DB.prods.find(x=>x.code===txt);
+                    if(p) { addToCart(p.id); notify(`Masuk: ${p.name}`); }
+                    else notify('Produk tidak dikenal', 'error');
                 }
-            }).catch(err => { console.log(err); alert("Kamera Error/Tidak Diizinkan"); stopScanner(); });
+            }).catch(() => { notify('Kamera Error', 'error'); stopScanner(); });
         }
 
         function stopScanner() {
-            if(scanner) scanner.stop().then(() => {
-                document.getElementById('modal-scanner').style.display = 'none';
-                scanner.clear();
-            }); else document.getElementById('modal-scanner').style.display = 'none';
+            if(scanner) scanner.stop().then(()=> {
+                scanner.clear(); document.getElementById('modal-scanner').style.display='none';
+            }); else document.getElementById('modal-scanner').style.display='none';
         }
 
-        // Init
-        window.onload = () => { refreshUI(); };
+        window.onload = refreshUI;
     </script>
 </body>
 </html>
